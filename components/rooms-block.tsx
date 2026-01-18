@@ -12,7 +12,7 @@ const roomsData = [
     titleEn: 'LANDS OF VIETNAM',
     descVi: 'Khám phá văn hoá các tỉnh thành Việt Nam',
     descEn: 'Discover Vietnamese culture across provinces',
-    image: '/room1-mienn-dat-viet.jpg',
+    image: '/room1-mienn-dat-viet.png',
     fullContentVi: `Mô tả: Khám phá văn hoá các tỉnh thành Việt Nam
 Số người chơi: 3 - 4 đội, 2 - 3 người/ đội
 Khi mỗi vùng đất đều mang trong mình một câu chuyện, liệu bạn có đủ bản lĩnh để chinh phục cả bản đồ Việt Nam?
@@ -38,7 +38,7 @@ Why should you experience this theme?
     titleEn: 'LIVING VILLAGES',
     descVi: 'Khám phá văn hoá làng quê Việt Nam kết hợp tín ngưỡng dân gian',
     descEn: 'Experience rural Vietnam with folk traditions',
-    image: '/room2-lang-viet-song.jpg',
+    image: '/room2-lang-viet-song.png',
     fullContentVi: `Mô tả: Khám phá văn hoá làng quê Việt Nam kết hợp yếu tố tín ngưỡng dân gian
 Số người chơi: 3 - 4 đội, 2 - 3 người/ đội
 Giữa nhịp sống yên bình của làng quê Việt Nam, không chỉ có mái đình, giếng nước hay những con đường đất quen thuộc, mà còn tồn tại những niềm tin cổ xưa được truyền lại qua nhiều thế hệ.
@@ -62,7 +62,7 @@ Why should you experience this theme?
     titleEn: 'TRADITIONAL CRAFTS',
     descVi: 'Trải nghiệm khám phá văn hoá làng nghề truyền thống Việt Nam',
     descEn: 'Explore traditional crafts villages of Vietnam',
-    image: '/room3-lang-nghe.jpg',
+    image: '/room3-lang-nghe.png',
     fullContentVi: `Mô tả: Trải nghiệm khám phá văn hoá làng nghề truyền thống Việt Nam
 Số người chơi: 3 - 4 đội, 2 - 3 người/ đội
 Ẩn sau những con ngõ nhỏ và nhịp sống yên bình của làng quê Việt là những làng nghề truyền thống đã tồn tại qua nhiều thế hệ. Mỗi nghề không chỉ tạo ra sản phẩm thủ công, mà còn lưu giữ câu chuyện về sự khéo léo, sáng tạo và tinh thần lao động bền bỉ.
@@ -99,65 +99,102 @@ export default function RoomsBlock() {
 
   return (
     <>
-      <section id="rooms" className="min-h-screen bg-red-900 flex items-center pt-24 pb-12">
+      <section id="rooms" className="h-screen bg-red-900 flex items-center pt-20 pb-6">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <h1 className="text-3xl lg:text-4xl font-bold text-white text-left mb-6">
+            {language === 'vi' ? 'THÔNG TIN ĐẶT PHÒNG' : 'BOOKING INFORMATION'}
+          </h1>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 items-start">
             {/* Left - Content */}
-            <div className="space-y-6">
-              <h2 className="text-4xl lg:text-5xl font-bold text-yellow-400">
+            <div className="space-y-3 lg:space-y-4 max-h-[calc(100vh-280px)] overflow-y-auto pr-4 
+              scrollbar-thin scrollbar-thumb-yellow-400/60 scrollbar-track-transparent 
+              hover:scrollbar-thumb-yellow-400 scroll-smooth
+              [&::-webkit-scrollbar]:w-2
+              [&::-webkit-scrollbar-track]:bg-transparent
+              [&::-webkit-scrollbar-thumb]:bg-yellow-400/60
+              [&::-webkit-scrollbar-thumb]:rounded-full
+              hover:[&::-webkit-scrollbar-thumb]:bg-yellow-400">
+              <h2 className="text-2xl lg:text-3xl font-bold text-yellow-400 sticky top-0 bg-red-900 pb-1 z-10">
                 {language === 'vi' ? current.titleVi : current.titleEn}
               </h2>
-              <p className="text-white text-lg leading-relaxed whitespace-pre-line">
+              <p className="text-white text-sm lg:text-base leading-relaxed whitespace-pre-line">
                 {language === 'vi' ? current.fullContentVi : current.fullContentEn}
               </p>
-
-              <button
-                onClick={() => setIsBookingOpen(true)}
-                className="w-full px-8 py-3 bg-yellow-400 text-red-900 rounded-lg hover:bg-yellow-300 transition font-semibold text-lg"
-              >
-                {t('hero.button')}
-              </button>
-
-              {/* Navigation */}
-              <div className="flex items-center justify-between pt-8">
-                <button
-                  onClick={handlePrev}
-                  className="p-3 rounded-full bg-yellow-400 text-red-900 hover:bg-yellow-300 transition"
-                >
-                  <ChevronLeft className="w-6 h-6" />
-                </button>
-
-                <div className="flex gap-2">
-                  {roomsData.map((_, idx) => (
-                    <button
-                      key={idx}
-                      onClick={() => setCurrentIndex(idx)}
-                      className={`w-3 h-3 rounded-full transition ${
-                        idx === currentIndex ? 'bg-yellow-400' : 'bg-yellow-400/40'
-                      }`}
-                    />
-                  ))}
-                </div>
-
-                <button
-                  onClick={handleNext}
-                  className="p-3 rounded-full bg-yellow-400 text-red-900 hover:bg-yellow-300 transition"
-                >
-                  <ChevronRight className="w-6 h-6" />
-                </button>
-              </div>
             </div>
 
-            {/* Right - Image */}
-            <div className="relative h-96 lg:h-full min-h-96">
-              <img
-                src={current.image || "/placeholder.svg"}
-                alt={language === 'vi' ? current.titleVi : current.titleEn}
-                className="w-full h-full object-cover rounded-lg border-4 border-yellow-400"
-              />
+            {/* Right - Image with Navigation Buttons */}
+            <div className="relative flex items-center gap-4">
+              {/* Previous Button */}
+              <button
+                onClick={handlePrev}
+                className="hidden lg:flex p-3 rounded-full bg-yellow-400 text-red-900 hover:bg-yellow-300 transition shadow-lg z-10"
+              >
+                <ChevronLeft className="w-6 h-6" />
+              </button>
+
+              {/* Image Container */}
+              <div className="flex-1 relative h-[350px] lg:h-[calc(100vh-280px)] max-h-[500px] p-3 border-4 border-yellow-400 rounded-2xl bg-gradient-to-br from-red-800/30 to-red-900/50 shadow-2xl">
+                <img
+                  src={current.image || "/placeholder.svg"}
+                  alt={language === 'vi' ? current.titleVi : current.titleEn}
+                  className="w-full h-full object-contain rounded-xl"
+                />
+
+                {/* Mobile Navigation Buttons - overlay on image */}
+                <button
+                  onClick={handlePrev}
+                  className="lg:hidden absolute left-2 top-1/2 transform -translate-y-1/2 p-2 rounded-full bg-yellow-400/90 text-red-900 hover:bg-yellow-300 transition shadow-lg z-10"
+                >
+                  <ChevronLeft className="w-5 h-5" />
+                </button>
+                <button
+                  onClick={handleNext}
+                  className="lg:hidden absolute right-2 top-1/2 transform -translate-y-1/2 p-2 rounded-full bg-yellow-400/90 text-red-900 hover:bg-yellow-300 transition shadow-lg z-10"
+                >
+                  <ChevronRight className="w-5 h-5" />
+                </button>
+              </div>
+
+              {/* Next Button */}
+              <button
+                onClick={handleNext}
+                className="hidden lg:flex p-3 rounded-full bg-yellow-400 text-red-900 hover:bg-yellow-300 transition shadow-lg z-10"
+              >
+                <ChevronRight className="w-6 h-6" />
+              </button>
+            </div>
+          </div>
+
+          {/* Bottom Row: Button and Navigation aligned with slide border */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8  items-center">
+            {/* Left - Button aligned with left content */}
+            <div className="flex items-center">
+              <button
+                onClick={() => setIsBookingOpen(true)}
+                className="w-full px-6 py-3 mt-[-20px] bg-yellow-400 text-red-900 rounded-lg hover:bg-yellow-300 transition font-semibold text-lg shadow-2xl">
+                {t('hero.button')}
+              </button>
+            </div>
+
+            {/* Right - Navigation aligned with slide */}
+            <div className="flex items-center justify-between px-4">
+           
+              {/* Dots Indicator */}
+              <div className="flex items-center justify-center gap-3 flex-1">
+                {roomsData.map((_, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => setCurrentIndex(idx)}
+                    className={`w-4 h-4 rounded-full transition ${
+                      idx === currentIndex ? 'bg-yellow-400 scale-125' : 'bg-yellow-400/40'
+                    }`}
+                  />
+                ))}
+              </div>
+
+            </div>
           </div>
         </div>
-      </div>
       </section>
 
       <BookingModal isOpen={isBookingOpen} onClose={() => setIsBookingOpen(false)} />

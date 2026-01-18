@@ -91,7 +91,7 @@ export default function InstructionsBlock() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Left - Title */}
             <div>
-              <h2 className="text-5xl lg:text-6xl font-bold text-yellow-400 leading-tight">
+              <h2 className="text-5xl lg:text-6xl font-bold text-white leading-tight">
                 {language === "vi" ? "HƯỚNG DẪN" : "HOW TO"}
                 <br />
                 {language === "vi" ? "CÁCH CHƠI" : "PLAY"}
@@ -100,14 +100,14 @@ export default function InstructionsBlock() {
 
             {/* Right - Content Slider */}
             <div className="space-y-8">
-              <div className="bg-red-800/50 border-2 border-yellow-400 rounded-xl p-10 min-h-screen">
-                <h3 className="text-4xl font-bold text-yellow-400 mb-6">{steps[currentStep].title}</h3>
-                <p className="text-white text-xl leading-relaxed mb-8">{steps[currentStep].description}</p>
+              <div className="bg-red-800/50 border-2 border-yellow-400 rounded-xl p-8 lg:p-10">
+                <h3 className="text-3xl lg:text-4xl font-bold text-yellow-400 mb-4 lg:mb-6">{steps[currentStep].title}</h3>
+                <p className="text-white text-lg lg:text-xl leading-relaxed mb-6 lg:mb-8">{steps[currentStep].description}</p>
 
                 {/* Details List */}
-                <ul className="space-y-4">
+                <ul className="space-y-3 lg:space-y-4">
                   {steps[currentStep].details.map((detail, idx) => (
-                    <li key={idx} className="flex gap-3 text-white text-lg">
+                    <li key={idx} className="flex gap-3 text-white text-base lg:text-lg">
                       <span className="text-yellow-400 font-bold">•</span>
                       <span>{detail}</span>
                     </li>

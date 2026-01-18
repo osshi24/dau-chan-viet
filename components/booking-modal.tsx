@@ -33,13 +33,18 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
       <div className="bg-card rounded-xl border border-border max-w-md w-full relative">
         <button
           onClick={onClose}
-          className="absolute right-4 top-4 text-muted-foreground hover:text-foreground transition"
+          className="absolute right-4 top-4 text-muted-foreground hover:text-foreground transition z-10"
         >
           <X className="w-6 h-6" />
         </button>
 
+        {/* Title Section with Background */}
+        <div className="bg-gradient-to-r from-red-900 to-red-800 p-6 rounded-t-xl">
+          <h2 className="text-3xl font-bold text-yellow-400 text-center">ĐẶT PHÒNG NGAY</h2>
+          <p className="text-white/80 text-center text-sm mt-2">Đặt lịch trải nghiệm của bạn ngay hôm nay</p>
+        </div>
+
         <div className="p-8">
-          <h2 className="text-3xl font-bold text-accent mb-6">ĐẶT PHÒNG NGAY</h2>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>

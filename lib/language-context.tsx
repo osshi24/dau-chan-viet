@@ -16,6 +16,7 @@ const translations = {
     "header.trang_chu": "TRANG CHỦ",
     "header.booking": "ĐẶT PHÒNG",
     "header.instructions": "CÁCH CHƠI",
+    "header.pricing": "BẢNG GIÁ",
     "header.reviews": "FEEDBACK",
     "header.contact": "LIÊN HỆ",
     "hero.title": "HÀNH TRÌNH MIỀN ĐẤT VIỆT",
