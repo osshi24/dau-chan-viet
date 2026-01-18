@@ -19,11 +19,57 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
     room: "",
     players: "",
   })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitMessage, setSubmitMessage] = useState("")
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    console.log("Booking submitted:", formData)
-    onClose()
+    setIsSubmitting(true)
+    setSubmitMessage("")
+
+    try {
+      // Lấy URL từ environment variable
+      const googleSheetsUrl = process.env.NEXT_PUBLIC_GOOGLE_SHEETS_URL
+
+      if (!googleSheetsUrl) {
+        throw new Error("Google Sheets URL chưa được cấu hình. Vui lòng xem file GOOGLE_SHEETS_SETUP.md")
+      }
+
+      // Gửi data đến Google Sheets
+      const response = await fetch(googleSheetsUrl, {
+        method: "POST",
+        mode: "no-cors", // Cần thiết cho Google Apps Script
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      })
+
+      // no-cors mode không trả về response, nên giả định thành công
+      setSubmitMessage("Đặt phòng thành công! Chúng tôi sẽ liên hệ với bạn sớm.")
+      
+      // Reset form
+      setFormData({
+        name: "",
+        phone: "",
+        date: "",
+        time: "",
+        room: "",
+        players: "",
+      })
+
+      // Đóng modal sau 2 giây
+      setTimeout(() => {
+        onClose()
+        setSubmitMessage("")
+      }, 2000)
+
+    } catch (error) {
+      console.error("Booking error:", error)
+      setSubmitMessage("Có lỗi xảy ra. Vui lòng thử lại hoặc liên hệ trực tiếp qua hotline.")
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   if (!isOpen) return null
@@ -77,9 +123,9 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
                 className="w-full bg-secondary text-foreground px-4 py-2 rounded-lg border border-border focus:outline-none focus:border-accent"
               >
                 <option value="">-- Chọn phòng --</option>
-                <option value="cam-lang">Cắm Lăng</option>
-                <option value="loi-thoat">Lời Thoát</option>
-                <option value="huyet-ngai">Huyết Ngái</option>
+                <option value="lang-viet-song">Làng Việt Sống</option>
+                <option value="lang-nghe-truyen-thong">Làng Nghề Truyền Thống</option>
+                <option value="mien-dat-viet">Miền Đất Việt</option>
               </select>
             </div>
 
@@ -120,10 +166,22 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
 
             <button
               type="submit"
-              className="w-full bg-accent text-accent-foreground py-3 rounded-lg hover:opacity-90 transition font-semibold mt-6"
+              disabled={isSubmitting}
+              className="w-full bg-accent text-accent-foreground py-3 rounded-lg hover:opacity-90 transition font-semibold mt-6 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              HOÀN TẤT ĐẶT PHÒNG
+              {isSubmitting ? "ĐANG XỬ LÝ..." : "HOÀN TẤT ĐẶT PHÒNG"}
             </button>
+
+            {/* Success/Error Message */}
+            {submitMessage && (
+              <div className={`mt-4 p-3 rounded-lg text-center text-sm ${
+                submitMessage.includes("thành công") 
+                  ? "bg-green-500/20 text-green-300 border border-green-500/50" 
+                  : "bg-red-500/20 text-red-300 border border-red-500/50"
+              }`}>
+                {submitMessage}
+              </div>
+            )}
           </form>
         </div>
       </div>
