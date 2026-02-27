@@ -13,7 +13,7 @@ interface LanguageContextType {
 
 const translations = {
   vi: {
-    "header.trang_chu": "TRANG CHỦ ^^",
+    "header.trang_chu": "TRANG CHỦ xx",
     "header.booking": "ĐẶT PHÒNG",
     "header.instructions": "CÁCH CHƠI",
     "header.pricing": "BẢNG GIÁ",
