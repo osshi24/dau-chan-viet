@@ -148,7 +148,7 @@ export default function InstructionsBlock() {
         </div>
       </section>
 
-      {isBookingOpen && <BookingModal onClose={() => setIsBookingOpen(false)} />}
+      <BookingModal isOpen={isBookingOpen} onClose={() => setIsBookingOpen(false)} />
     </>
   )
 }

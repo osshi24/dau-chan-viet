@@ -57,7 +57,7 @@ export default function ContactBlock() {
                 width="100%"
                 height="500"
                 style={{ border: 0 }}
-                allowFullScreen=""
+                allowFullScreen={true}
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
               />
@@ -67,13 +67,30 @@ export default function ContactBlock() {
 
         {/* Social Links Footer */}
         <div className="flex gap-6 justify-center mt-12 pt-8 border-t border-yellow-400/30">
-          <a href="https://www.facebook.com/profile.php?id=61586747937546" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-yellow-400/20 flex items-center justify-center hover:bg-yellow-400/40 transition" title="Dấu Chân Việt - Monopoly Experience Hub">
+          <a 
+            href="https://www.facebook.com/profile.php?id=61586747937546" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="w-10 h-10 rounded-full bg-yellow-400/20 flex items-center justify-center hover:bg-yellow-400/40 transition" 
+            title="Dấu Chân Việt - Monopoly Experience Hub"
+            aria-label="Facebook Page"
+          >
             <span className="text-yellow-400">f</span>
           </a>
-          <a href="#" className="w-10 h-10 rounded-full bg-yellow-400/20 flex items-center justify-center hover:bg-yellow-400/40 transition">
+          <a 
+            href="https://zalo.me/0905316737" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="w-10 h-10 rounded-full bg-yellow-400/20 flex items-center justify-center hover:bg-yellow-400/40 transition"
+            aria-label="Zalo Contact"
+          >
             <span className="text-yellow-400">📱</span>
           </a>
-          <a href="#" className="w-10 h-10 rounded-full bg-yellow-400/20 flex items-center justify-center hover:bg-yellow-400/40 transition">
+          <a 
+            href="mailto:dauchanviet.official@gmail.com" 
+            className="w-10 h-10 rounded-full bg-yellow-400/20 flex items-center justify-center hover:bg-yellow-400/40 transition"
+            aria-label="Email Contact"
+          >
             <span className="text-yellow-400">✉</span>
           </a>
         </div>
