@@ -35,6 +35,13 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
         throw new Error("Google Sheets URL chưa được cấu hình. Vui lòng xem file GOOGLE_SHEETS_SETUP.md")
       }
 
+      // Validate URL format
+      try {
+        new URL(googleSheetsUrl)
+      } catch {
+        throw new Error("Google Sheets URL không hợp lệ")
+      }
+
       // Gửi data đến Google Sheets
       const response = await fetch(googleSheetsUrl, {
         method: "POST",
@@ -65,8 +72,18 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
       }, 2000)
 
     } catch (error) {
-      console.error("Booking error:", error)
+      // Removed console.error for production security
+      // Use proper logging service in production (e.g., Sentry)
       setSubmitMessage("Có lỗi xảy ra. Vui lòng thử lại hoặc liên hệ trực tiếp qua hotline.")
+      // Reset form state on error
+      setFormData({
+        name: "",
+        phone: "",
+        date: "",
+        time: "",
+        room: "",
+        players: "",
+      })
     } finally {
       setIsSubmitting(false)
     }
@@ -101,6 +118,7 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 className="w-full bg-secondary text-foreground px-4 py-2 rounded-lg border border-border placeholder:text-muted-foreground focus:outline-none focus:border-accent"
+                required
               />
             </div>
 
@@ -112,6 +130,7 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
                 value={formData.phone}
                 onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                 className="w-full bg-secondary text-foreground px-4 py-2 rounded-lg border border-border placeholder:text-muted-foreground focus:outline-none focus:border-accent"
+                required
               />
             </div>
 
@@ -121,6 +140,7 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
                 value={formData.room}
                 onChange={(e) => setFormData({ ...formData, room: e.target.value })}
                 className="w-full bg-secondary text-foreground px-4 py-2 rounded-lg border border-border focus:outline-none focus:border-accent"
+                required
               >
                 <option value="">-- Chọn phòng --</option>
                 <option value="lang-viet-song">Làng Việt Sống</option>
@@ -137,6 +157,7 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
                   value={formData.date}
                   onChange={(e) => setFormData({ ...formData, date: e.target.value })}
                   className="w-full bg-secondary text-foreground px-4 py-2 rounded-lg border border-border focus:outline-none focus:border-accent"
+                  required
                 />
               </div>
               <div>
@@ -146,6 +167,7 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
                   value={formData.time}
                   onChange={(e) => setFormData({ ...formData, time: e.target.value })}
                   className="w-full bg-secondary text-foreground px-4 py-2 rounded-lg border border-border focus:outline-none focus:border-accent"
+                  required
                 />
               </div>
             </div>
@@ -156,6 +178,7 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
                 value={formData.players}
                 onChange={(e) => setFormData({ ...formData, players: e.target.value })}
                 className="w-full bg-secondary text-foreground px-4 py-2 rounded-lg border border-border focus:outline-none focus:border-accent"
+                required
               >
                 <option value="">-- Chọn số người --</option>
                 <option value="2-4">2-4 người</option>

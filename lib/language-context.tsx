@@ -10,8 +10,7 @@ interface LanguageContextType {
   setLanguage: (lang: Language) => void
   t: (key: string) => string
 }
-// abc
-// cc
+
 const translations = {
   vi: {
     "header.trang_chu": "TRANG CHỦ ",
@@ -136,15 +135,25 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const [language, setLanguageState] = useState<Language>("vi")
 
   useEffect(() => {
-    const savedLanguage = localStorage.getItem("language") as Language | null
-    if (savedLanguage) {
-      setLanguageState(savedLanguage)
+    // Safe localStorage access with try-catch
+    try {
+      const savedLanguage = localStorage.getItem("language") as Language | null
+      if (savedLanguage && (savedLanguage === "vi" || savedLanguage === "en")) {
+        setLanguageState(savedLanguage)
+      }
+    } catch (error) {
+      // localStorage may be disabled (private mode, permissions)
+      // Fall back to default language "vi"
     }
   }, [])
 
   const setLanguage = (lang: Language) => {
     setLanguageState(lang)
-    localStorage.setItem("language", lang)
+    try {
+      localStorage.setItem("language", lang)
+    } catch (error) {
+      // Fail silently if localStorage is not available
+    }
   }
 
   const t = (key: string): string => {
