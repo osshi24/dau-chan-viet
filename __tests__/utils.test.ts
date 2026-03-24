@@ -18,7 +18,7 @@ describe('cn utility', () => {
     expect(cn()).toBe('')
   })
 
-  it('handles undefined and null inputs', () => {
+  it('handles undefined and null values', () => {
     expect(cn('foo', undefined, null, 'bar')).toBe('foo bar')
   })
 })
