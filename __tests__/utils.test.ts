@@ -11,7 +11,7 @@ describe("cn utility", () => {
   });
 
   it("merges tailwind classes and resolves conflicts", () => {
-    expect(cn("px-2 py-1", "px-4")).toBe("px-4 py-1");
+    expect(cn("px-2 py-1", "px-4")).toBe("py-1 px-4");
   });
 
   it("handles empty inputs", () => {
