@@ -11,6 +11,7 @@ on:
       - 'package.json'
       - 'pnpm-lock.yaml'
       - 'vitest.config.ts'
+      - 'tsconfig.json'
       - '!.github/workflows/**'
   # Run tests after merge and collect coverage as canonical source of truth
   push:
@@ -21,6 +22,7 @@ on:
       - 'package.json'
       - 'pnpm-lock.yaml'
       - 'vitest.config.ts'
+      - 'tsconfig.json'
   # Allow manual trigger for debugging
   workflow_dispatch:
 
@@ -47,7 +49,10 @@ jobs:
           cache: 'pnpm'
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: pnpm install
+
+      - name: Install vitest
+        run: pnpm add -D vitest @vitest/coverage-v8
 
       - name: Run tests
         run: |
