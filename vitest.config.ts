@@ -8,7 +8,7 @@ export default defineConfig({
     },
   },
   test: {
-    testTimeout: process.env.CI ? 180000 : 5000,
+    testTimeout: process.env.CI ? 30000 : 5000,
     environment: 'jsdom',
     coverage: {
       provider: 'v8',
