@@ -65,7 +65,7 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
       }, 2000)
 
     } catch (error) {
-      console.error("Booking error:", error)
+      if (process.env.NODE_ENV !== "production") console.error("Booking error:", error)
       setSubmitMessage("Có lỗi xảy ra. Vui lòng thử lại hoặc liên hệ trực tiếp qua hotline.")
     } finally {
       setIsSubmitting(false)
@@ -98,6 +98,8 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
               <input
                 type="text"
                 placeholder="Nhập họ tên"
+                required
+                minLength={2}
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 className="w-full bg-secondary text-foreground px-4 py-2 rounded-lg border border-border placeholder:text-muted-foreground focus:outline-none focus:border-accent"
@@ -109,6 +111,9 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
               <input
                 type="tel"
                 placeholder="0xxx xxx xxx"
+                required
+                pattern="[0-9]{10}"
+                title="Vui lòng nhập số điện thoại 10 chữ số"
                 value={formData.phone}
                 onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                 className="w-full bg-secondary text-foreground px-4 py-2 rounded-lg border border-border placeholder:text-muted-foreground focus:outline-none focus:border-accent"
@@ -119,6 +124,7 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
               <label className="block text-sm font-semibold text-foreground mb-2">Chọn phòng chơi</label>
               <select
                 value={formData.room}
+                required
                 onChange={(e) => setFormData({ ...formData, room: e.target.value })}
                 className="w-full bg-secondary text-foreground px-4 py-2 rounded-lg border border-border focus:outline-none focus:border-accent"
               >
@@ -134,6 +140,7 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
                 <label className="block text-sm font-semibold text-foreground mb-2">Ngày</label>
                 <input
                   type="date"
+                  required
                   value={formData.date}
                   onChange={(e) => setFormData({ ...formData, date: e.target.value })}
                   className="w-full bg-secondary text-foreground px-4 py-2 rounded-lg border border-border focus:outline-none focus:border-accent"
@@ -143,6 +150,7 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
                 <label className="block text-sm font-semibold text-foreground mb-2">Giờ</label>
                 <input
                   type="time"
+                  required
                   value={formData.time}
                   onChange={(e) => setFormData({ ...formData, time: e.target.value })}
                   className="w-full bg-secondary text-foreground px-4 py-2 rounded-lg border border-border focus:outline-none focus:border-accent"
@@ -154,6 +162,7 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
               <label className="block text-sm font-semibold text-foreground mb-2">Số người chơi</label>
               <select
                 value={formData.players}
+                required
                 onChange={(e) => setFormData({ ...formData, players: e.target.value })}
                 className="w-full bg-secondary text-foreground px-4 py-2 rounded-lg border border-border focus:outline-none focus:border-accent"
               >

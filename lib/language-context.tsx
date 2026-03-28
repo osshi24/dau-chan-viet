@@ -10,11 +10,6 @@ interface LanguageContextType {
   setLanguage: (lang: Language) => void
   t: (key: string) => string
 }
-// abc
-// cc
-// aaa
-
-// ccc
 const translations = {
   vi: {
     "header.trang_chu": "TRANG CHỦ ",
